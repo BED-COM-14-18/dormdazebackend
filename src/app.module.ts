@@ -1,10 +1,26 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { typeOrmConfig } from './typeOrmConfig';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { StudentModule } from './student/student.module';
+import { AdminModule } from './admin/admin.module';
+import { LandlordModule } from './landlord/landlord.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { ListingModule } from './listing/listing.module';
+import { BookingModule } from './booking/booking.module';
+import { SearchfilteringModule } from './searchfiltering/searchfiltering.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), ListingModule, BookingModule, 
+    SearchfilteringModule, StudentModule, AdminModule, LandlordModule, AuthModule,
+
+    JwtModule.register({
+      secret: 'ifindSecret',
+      signOptions: {expiresIn: '0.5hr'},
+      global: true
+    })
+  ],
+
 })
+
 export class AppModule {}
