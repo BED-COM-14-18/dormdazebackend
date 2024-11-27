@@ -1,0 +1,11 @@
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+  "firstName": "Dennis",
+  "lastName": "zukwayo",
+   "email" : "beatrice@gmail.com",
+  "password" : "dennisojali",
+  "isOwner": false,
+  "isAgent": false
+}
