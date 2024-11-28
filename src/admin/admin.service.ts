@@ -14,26 +14,26 @@ export class AdminService {
 
   constructor(
     @InjectRepository(Admin)
-    private agentRepository: Repository<Admin>,
+    private adminRepository: Repository<Admin>,
     private jwtService: JwtService
   ){}
   
 
- async create(createAgentDto: SignUpDto): Promise<{token: string}> {
-    const name = (createAgentDto.name);
-    const {email,password} = createAgentDto;
+ async create(adminDto: SignUpDto): Promise<{token: string}> {
+    const name = (adminDto.name);
+    const {email,password} = adminDto;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newAgent = this.agentRepository.create({
+    const newAdmin = this.adminRepository.create({
       name: name,
       email: email,
       password: hashedPassword,
 
     })
 
-    await this.agentRepository.save(newAgent);
+    await this.adminRepository.save(newAdmin);
 
-    const token = this.jwtService.sign({id: newAgent.id});
+    const token = this.jwtService.sign({id: newAdmin.id});
     return {token};
   }
 
@@ -41,7 +41,7 @@ export class AdminService {
 
     const {email,password} = validateUser;
     
-    const user = await this.agentRepository.findOne({where: {email}});
+    const user = await this.adminRepository.findOne({where: {email}});
     
       if (!user)
         return null;
@@ -59,7 +59,7 @@ export class AdminService {
   
   async findOneByEmail(user : SignUpDto): Promise<boolean> {
     const {email} = user;
-    const check = await this.agentRepository.findOne({where:{email}})
+    const check = await this.adminRepository.findOne({where:{email}})
 
     if (!check)
       return false;
@@ -69,9 +69,9 @@ export class AdminService {
   }
 
   
-  async findOneById(id: string) {
+  async findOneById(id: number) {
     
-    const user = await this.agentRepository.findOne({where:{id: id}});
+    const user = await this.adminRepository.findOne({where:{ id }});
 
     if (!user)
       return null;
@@ -80,15 +80,19 @@ export class AdminService {
 
   }
 
-  findAll(){}
+  findAll(){
+    return this.adminRepository.find();
+  }
 
-  findOne(id: number){}
+  findOne(id: number){
+    return this.adminRepository.findOneBy({ id });
+  }
 
-  update(id: number, updateAgentDto: UpdateAdminDto) {
-    return `This action updates a #${id} agent`;
+  update(id: number, updateAdminDto: UpdateAdminDto) {
+    return this.adminRepository.update(id, updateAdminDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} agent`;
+    return this.adminRepository.delete(id);
   }
 }

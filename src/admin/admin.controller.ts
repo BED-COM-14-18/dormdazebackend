@@ -5,33 +5,33 @@ import { UpdateAdminDto } from './dto/updateAdmin.dto';
 import { SignUpDto } from 'src/auth/dto/SignUp.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Agent')
-@Controller('agent')
+@ApiTags('Admin')
+@Controller('admin')
 export class AdminController {
-  constructor(private readonly agentService: AdminService) {}
+  constructor(private readonly adminService: AdminService) {}
 
   @Post()
-  create(@Body() createAgentDto: SignUpDto) {
-    return this.agentService.create(createAgentDto);
+  create(@Body() adminDto: SignUpDto) {
+    return this.adminService.create(adminDto);
   }
 
   @Get()
   findAll() {
-    return this.agentService.findAll();
+    return this.adminService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.agentService.findOne(+id);
+    return this.adminService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAgentDto: UpdateAdminDto) {
-    return this.agentService.update(+id, updateAgentDto);
+  update(@Param('id') id: number, @Body() updateAgentDto: UpdateAdminDto) {
+    return this.adminService.update(+id, updateAgentDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.agentService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.adminService.remove(+id);
   }
 }

@@ -6,7 +6,7 @@ import { Listing } from "src/listing/entities/listing.entity";
 export class Admin {
     
     @PrimaryGeneratedColumn()
-    id : string;
+    id : number;
 
     @Column()
     name: string;

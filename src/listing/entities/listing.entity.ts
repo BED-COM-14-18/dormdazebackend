@@ -1,9 +1,4 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-
-  } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
   
   @Entity()
   export class Listing {
@@ -12,7 +7,7 @@ import {
   
 
   @Column({ type: 'varchar', length: 255 })
-  name: string; 
+  Hostelname: string; 
 
   @Column({ type: 'text' })
   description: string; 

@@ -10,15 +10,15 @@ import { Searchfiltering } from 'src/searchfiltering/entities/searchfiltering.en
 export class ListingService {
   constructor(
     @InjectRepository(Listing)
-    private readonly accommodationRepository: Repository<Listing>,
+    private readonly repository: Repository<Listing>,
   ) {}
 
   async findById(id: number): Promise<Listing | null> {
-    return this.accommodationRepository.findOne({ where: { id } });
+    return this.repository.findOne({ where: { id } });
   }
 
   async findAll(searchDto: Searchfiltering): Promise<Listing[]> {
-    const queryBuilder = this.accommodationRepository.createQueryBuilder('accommodation');
+    const queryBuilder = this.repository.createQueryBuilder('accommodation');
 
     if (searchDto.rentalfee) {
       queryBuilder.andWhere('accommodation.rentalFee <= :rentalFee', {
@@ -48,19 +48,19 @@ export class ListingService {
   }
 
   async findByUserId(accomodation_id: number): Promise<Listing | null> {
-    return this.accommodationRepository.findOneBy({ id: accomodation_id }); 
+    return this.repository.findOneBy({ id: accomodation_id }); 
   }
 
   async create(listingDto: ListingDto): Promise<Listing> {
-    return this.accommodationRepository.save(listingDto);
+    return this.repository.save(listingDto);
   }
 
-  async update(id: number, updateAccomodationListingDto: UpdateListingDto): Promise<void> {
-    await this.accommodationRepository.update(id, UpdateListingDto);
-  }
+  async update(id: number, updateListingDto: UpdateListingDto): Promise<void> {
+    await this.repository.update(id, updateListingDto);
+  } 
 
   async remove(id: number): Promise<void> {
-    await this.accommodationRepository.delete(id);
+    await this.repository.delete(id);
   }
 }
 
