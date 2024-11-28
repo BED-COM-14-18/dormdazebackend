@@ -6,7 +6,7 @@ export class UpdateListingDto extends PartialType(ListingDto) {
 
    
     @IsString()
-    name?: string; 
+    Hostelname?: string; 
   
     @IsString()
     description?: string; 

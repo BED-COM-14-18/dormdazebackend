@@ -10,7 +10,7 @@ export class ListingDto {
   })
   
   @IsString()
-  name: string;
+  Hostelname: string;
 
   @ApiProperty({
     description: 'Description of the hostel',

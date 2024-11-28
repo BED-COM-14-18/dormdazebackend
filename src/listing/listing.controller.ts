@@ -7,7 +7,7 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Searchfiltering } from 'src/searchfiltering/entities/searchfiltering.entity';
 
 @ApiTags('Listings')
-@Controller('accomodation-listing')
+@Controller('listing')
 export class ListingController {
   constructor(private readonly listingService: ListingService) {}
   @Get(':id')
