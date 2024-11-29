@@ -1,33 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Listing } from 'src/listing/entities/listing.entity';
+import { Entity, PrimaryGeneratedColumn, Column,} from 'typeorm';
 
 @Entity()
 export class Booking {
   @PrimaryGeneratedColumn()
-  
-  id: string; 
-  
-  //@ManyToOne(() => AccomodationListing, (accomodation) => accomodation.bookings, { eager: true })
-  //@JoinColumn({ name: 'accomodationId' })
-  //accomodation: AccomodationListing;
-
-  //@Column()
-  //userId: string;  // Foreign key to the User table
-
-  @Column()
-  accomodationId: string; // Foreign key to the Accommodation table
+  id: string;
 
   @Column({ type: 'date', nullable: true })
-  checkInDate: Date | null; // Ensure this is of type 'Date'
+  checkInDate: Date | null; 
 
   @Column({ type: 'date', nullable: true })
   checkOutDate: Date | null;
-
-  //@Column()
-  //status: string;
-
- // @Column()
- // paymentStatus: string;
 
   @Column({ type: 'decimal', nullable: true })
   totalPrice?: number;

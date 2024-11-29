@@ -18,7 +18,6 @@ export class SearchfilteringController {
   @Get()
   async findAll(@Query() searchDto: SearchfilteringDto): Promise<{ message: string; data: Listing[] }> {
     const searchFilter = new Searchfiltering();
-    searchFilter.locationType = searchDto.locationType;
     searchFilter.spaceAvailable = searchDto.spaceAvailable;
     searchFilter.roomType = searchDto.roomType;
     searchFilter.rentalfee_Min = searchDto.rentalfee_Min;

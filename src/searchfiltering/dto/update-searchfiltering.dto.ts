@@ -1,7 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { SearchfilteringDto } from './create-searchfiltering.dto';
 import { IsOptional, IsString, IsBoolean, IsNumber, Min, Max } from 'class-validator';
-import { Transform } from 'class-transformer';
 
 export class UpdateSearchfilteringDto extends PartialType(SearchfilteringDto) {
 

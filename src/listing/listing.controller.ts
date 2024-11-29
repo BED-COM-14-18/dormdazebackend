@@ -11,7 +11,7 @@ import { Searchfiltering } from 'src/searchfiltering/entities/searchfiltering.en
 export class ListingController {
   constructor(private readonly listingService: ListingService) {}
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: string) {
     return this.listingService.findById(id);
   }
 

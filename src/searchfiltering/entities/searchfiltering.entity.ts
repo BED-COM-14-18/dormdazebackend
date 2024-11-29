@@ -12,8 +12,6 @@ export class Searchfiltering {
     @Column()
     roomType?: string;
   
-    @Column({ type: 'enum', enum: ['urban', 'rural'] })
-    locationType: 'urban' | 'rural'; // Location type (urban/rural)
   
     @Column({ type: 'int' })
     spaceAvailable: number; 

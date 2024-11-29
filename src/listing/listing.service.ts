@@ -13,7 +13,7 @@ export class ListingService {
     private readonly repository: Repository<Listing>,
   ) {}
 
-  async findById(id: number): Promise<Listing | null> {
+  async findById(id: string): Promise<Listing | null> {
     return this.repository.findOne({ where: { id } });
   }
 
@@ -47,7 +47,7 @@ export class ListingService {
     return queryBuilder.getMany();
   }
 
-  async findByUserId(accomodation_id: number): Promise<Listing | null> {
+  async findByUserId(accomodation_id: string): Promise<Listing | null> {
     return this.repository.findOneBy({ id: accomodation_id }); 
   }
 
