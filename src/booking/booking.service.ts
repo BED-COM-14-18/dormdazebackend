@@ -2,7 +2,7 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Booking } from './entities/booking.entity';
-import { CreateBookingDto } from './dto/create-booking.dto';
+import { BookingDto } from './dto/create-booking.dto';
 import { Listing } from 'src/listing/entities/listing.entity';
 import { BookingResponseDto } from './dto/booking-response.dto';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
@@ -13,40 +13,40 @@ export class BookingService {
     @InjectRepository(Booking)
     private bookingRepository: Repository<Booking>,
     @InjectRepository(Listing)
-    private accomodationRepository: Repository<Listing>,
+    private listingRepository: Repository<Listing>,
   ) {}
 
-  async createBooking(createBookingDto: CreateBookingDto): Promise<BookingResponseDto> {
-    const {  accomodationId, checkInDate, checkOutDate } = createBookingDto; //userId
+  async createBooking(createBookingDto: BookingDto): Promise<BookingResponseDto> {
+    const {  listingId, checkInDate, checkOutDate } = createBookingDto; 
 
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
 
-    const accommodation = await this.accomodationRepository.findOne({
-     // where: { id: accomodationId },
+    const room = await this.listingRepository.findOne({
+      where: { id: listingId },
     });
 
-    if (!accommodation) {
-      throw new NotFoundException('Accommodation not found');
+    if (!room) {
+      throw new NotFoundException('room not found');
     }
 
 
     
     const existingBookings = await this.bookingRepository.find({
       where: {
-       // accomodationId: accommodation.id,
+      
         checkInDate: LessThanOrEqual(checkOut), 
         checkOutDate: MoreThanOrEqual(checkIn), 
       },
     });
 
     if (existingBookings.length > 0) {
-      throw new BadRequestException('Accommodation is already booked for the selected dates');
+      throw new BadRequestException('room is already booked for the selected dates');
     }
 
     const booking = this.bookingRepository.create({
   
-      accomodationId,
+      
       checkInDate: checkIn,
       checkOutDate: checkOut,
       totalPrice: createBookingDto.totalPrice,
@@ -55,8 +55,7 @@ export class BookingService {
 
     await this.bookingRepository.save(booking);
 
-    await this.accomodationRepository.save(accommodation);
-
+    await this.listingRepository.save(room);
    
     return this.mapToResponseDto(booking);
   }
@@ -76,7 +75,9 @@ export class BookingService {
     return this.mapToResponseDto(booking);
   }
 
-  async updateBooking(id: string, updateBookingDto: CreateBookingDto): Promise<BookingResponseDto> {
+  async updateBooking(id: string, updateBookingDto: 
+    
+    BookingDto): Promise<BookingResponseDto> {
     const booking = await this.bookingRepository.findOne({
       where: { id },
     });
@@ -101,11 +102,9 @@ export class BookingService {
       throw new NotFoundException('Booking not found');
     }
 
-    const accommodation = await this.accomodationRepository.findOne({
-     // where: { id: booking.accomodationId },
-    });
-    if (accommodation) {
-      await this.accomodationRepository.save(accommodation);
+    const room = await this.listingRepository.findOneBy({});
+    if (room) {
+      await this.listingRepository.save(room);
     }
 
    
@@ -136,7 +135,6 @@ export class BookingService {
     }
 
     return {
-      accomodationId: booking.accomodationId,
       checkInDate: checkInDate.toISOString(),
       checkOutDate: checkOutDate.toISOString(),
       totalPrice: booking.totalPrice,

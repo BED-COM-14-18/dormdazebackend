@@ -13,11 +13,6 @@ export class SearchfilteringDto {
   @IsPositive()
   spaceAvailable?: number;
 
- /* @ApiProperty({ description: 'Maximum rental fee', required: false })
-  @IsOptional()
-  @IsNumber()
-  rentalFee?: number; */
-
   @ApiProperty({ description: 'Property type (e.g., apartment, house)', required: false })
   @IsOptional()
   @IsString()

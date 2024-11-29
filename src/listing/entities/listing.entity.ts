@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-  
-  @Entity()
-  export class Listing {
-    @PrimaryGeneratedColumn()
-    id: number;
-  
+import { Booking } from 'src/booking/entities/booking.entity';
+
+@Entity({ name: 'listing' })
+export class Listing {
+  @PrimaryGeneratedColumn()
+  id: string;
 
   @Column({ type: 'varchar', length: 255 })
   Hostelname: string; 
