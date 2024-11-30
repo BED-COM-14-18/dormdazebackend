@@ -6,7 +6,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     port: 3306,
     username: 'root',
     password: '',
-    database: 'dormdazedb',
+    database: 'dormdaze',
     autoLoadEntities: true,     
     synchronize: true,          
   };
